@@ -86,7 +86,7 @@ var work = {
 		"title": "Grocery Assistant",
 		"location": "Wellington, New Zealand",
 		"dates": "2000 - 2001",
-		"description": "Spent all day putting things on the shelves and facing(tidying the shelves so the look presentable)"
+		"description": "Spent all day putting things on the shelves and facing (tidy shelves so it looked presentable)"
 		}
 	]
 };
@@ -114,6 +114,20 @@ for (job in work.jobs) {
 
 displayWork(); //calls the function
 
+//-------- locationizer ---------------------
+
+// var locationizer = function(work){
+// 	var locationArray = [];
+
+// 	for (job in work){
+// 		var newLocation = work.jobs[job].location;
+// 		locationArray.push(newLocation);
+// 	}
+// 	return locationArray;
+
+// };
+// console.log(locationizer(work));
+
 
 //-------- collecting click locations ---------------------
 // grabbing click location from the 'document', which is pretty much the whole website
@@ -131,25 +145,50 @@ var projects = {
 		{
 		"title": "Capturegram Photography",
 		"dates": "2012-2016",
-		"discription": "Corporate photography business, offer services in all types of photography",
-		"images":["images/rath-pic.jpeg", "images/rath-pic.jpeg", "images/rath-pic.jpeg"]
+		"description": "Corporate photography business, offer services in all types of photography",
+		"images":["images/capturegram01.jpg", "images/capturegram02.jpg", "images/capturegram03.jpg"]
 		},
 		{
 		"title": "Sprout Media",
 		"dates": "2014-2016",
-		"discription": "Video production company",
-		"images":["images/rath-pic.jpeg", "images/rath-pic.jpeg", "images/rath-pic.jpeg"]
+		"description": "Video production company",
+		"images":["images/sprout01.png", "images/sprout02.png", "images/sprout03.png"]
 		}
 	]
 };
 
 
+projects.display = function() {
+  for (project in projects.projects) {
+    $("#projects").append(HTMLprojectStart);
+
+    var formattedTitle = HTMLprojectTitle.replace("%data%", projects.projects[project].title);
+    $(".project-entry:last").append(formattedTitle);
+
+    var formattedDates = HTMLprojectDates.replace("%data%", projects.projects[project].dates);
+    $(".project-entry:last").append(formattedDates);
+
+    var formattedDescription = HTMLprojectDescription.replace("%data%", projects.projects[project].description);
+    $(".project-entry:last").append(formattedDescription);
+
+    if (projects.projects[project].images.length > 0) {
+      for (image in projects.projects[project].images) {
+        var formattedImage = HTMLprojectImage.replace("%data%", projects.projects[project].images[image]);
+        $(".project-entry:last").append(formattedImage);
+      }
+    }
+  }
+};
+
+projects.display();
+
 //-------- education ---------------------
 var education = {
-	"school": [
+	"schools": [
 		{
 	 	"name": "Natcoll",
 	 	"city": "Wellington",
+	 	"degree": "Advanced Diploma",
 	 	"major": "Graphic Design",
 	 	"dates": "2007-2009",
 	 	"url": "https//www.natcoll.co.nz"
@@ -157,31 +196,85 @@ var education = {
 		{
 	 	"name": "Victoria University",
 	 	"city": "Wellington",
+	 	"degree": "BCA",
 	 	"major": "Economics",
 	 	"dates": "2000-2004",
 	 	"url": "https//www.vuw.co.nz"
 	 	}
 	],
 
-	"onlineCourse": [
+	"onlineCourses": [
 		{
 		"title": "HTML and CSS",
-		"school": "Udacity",
+		"school": " Udacity",
 		"dates": "Jan 2016",
 		"url": "https://www.udacity.com/"
 		}, 
 		{
 		"title": "Javascript",
-		"school": "Codecademy",
+		"school": " Codecademy",
 		"dates": "Dec 2015",
 		"url": "https://www.codecademy.com/"
 		} 
 	]
 };
 
+education.display = function() {
+  for (e in education.schools) {
+    $("#education").append(HTMLschoolStart);
 
+    var formattedName = HTMLschoolName.replace("%data%", education.schools[e].name);
+    $(".education-entry:last").append(formattedName);
+
+    var formattedDegree = HTMLschoolDegree.replace("%data%", education.schools[e].degree);
+    $(".education-entry:last").append(formattedDegree);
+
+    var formattedDates = HTMLschoolDates.replace("%data%", education.schools[e].dates);
+    $(".education-entry:last").append(formattedDates);
+
+    var formattedCity = HTMLschoolLocation.replace("%data%", education.schools[e].city);
+    $(".education-entry:last").append(formattedCity);
+
+    var formattedMajors = HTMLschoolMajor.replace("%data%", education.schools[e].major);
+    $(".education-entry:last").append(formattedMajors);
+    
+}
+  for (course in education.onlineCourses) {
+    $(".education-entry:last").append(HTMLonlineClasses);
+
+    var formattedName = HTMLonlineTitle.replace("%data%", education.onlineCourses[course].name);
+    $(".education-entry:last").append(formattedName);
+
+    var formattedSchool = HTMLonlineSchool.replace("%data%", education.onlineCourses[course].school);
+    $(".education-entry:last").append(formattedSchool);
+
+    var formattedDates = HTMLonlineDates.replace("%data%", education.onlineCourses[course].dates);
+    $(".education-entry:last").append(formattedDates);
+
+    var formattedURL = HTMLonlineURL.replace("%data%", education.onlineCourses[course].url);
+    $(".education-entry:last").append(formattedURL);
+
+  }
+};
+education.display();
+
+//-------- international ---------------------
+
+var inName = function(name){
+	name = name.trim().split(" ");
+	console.log(name);
+	name[1] = name[1].toUpperCase();
+	name[0] = name[0].slice(0, 1).toUpperCase(); + name[0].slice(1).toLowerCase();
+
+	return name[0] + " " + name[1];
+};
+
+$("#main").append(internationalizeButton);
 
 	
+//-------- map ---------------------
+
+$("#mapDiv").append(googleMap);
 
 
 
